@@ -10,3 +10,7 @@ const uri = process.env.API_KEY;
 const PORT = process.env.PORT;
 
 const User = require('.model/user');
+
+async function start(){
+    
+}
