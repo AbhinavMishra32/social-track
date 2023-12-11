@@ -43,5 +43,6 @@ res.sendFile(path.join(__dirname, 'public/login/signin.html'));
 })
 
 app.post('/api/register', async(req, res) =>{
-    console.log('This is the result the server got: ')
+    console.log('This is the result the server got: ' + req.body);
+    const {sUsername, sPassword} = req.body;
 })
