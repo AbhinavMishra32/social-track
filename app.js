@@ -44,7 +44,7 @@ res.sendFile(path.join(__dirname, 'public/login/signin.html'));
 
 app.post('/api/register', async(req, res) =>{
     console.log('This is the result the server got: ' + req.body);
-    const {sUsername, sPassword} = req.body;
+    const {username, password} = req.body;
     //creating user in database:
     try{
         const response = await User.create({username,password})
