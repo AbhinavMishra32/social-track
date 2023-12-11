@@ -45,4 +45,18 @@ res.sendFile(path.join(__dirname, 'public/login/signin.html'));
 app.post('/api/register', async(req, res) =>{
     console.log('This is the result the server got: ' + req.body);
     const {sUsername, sPassword} = req.body;
+    //creating user in database:
+    try{
+        const response = await User.create({username,password})
+        console.log("user created successfully!" + "User data: ", response);
+    }
+    catch(err){
+        if(err.code === 11000){
+            res.status(409).json({message: 'Username already exists'});
+        }
+        else{
+            res.status(500).json({message: 'Something went wrong'});
+        }
+    }
+    res.json({status: 'OK'});
 })
