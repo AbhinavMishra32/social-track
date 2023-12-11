@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+require('dotenv').config();
 
 app.use(express.static('public'));
 
@@ -9,7 +10,7 @@ mongoose.set('strictQuery', false);
 const uri = process.env.API_KEY;
 const PORT = process.env.PORT;
 
-const User = require('.model/user');
+// const User = require('.model/user');
 
 async function start(){
     try{
@@ -40,4 +41,4 @@ app.get('/login', (req, res) =>{
 res.sendFile(path.join(__dirname, 'public/login/login.html'));
 })
 
-app.post
+// app.post
