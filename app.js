@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require('path');
 require('dotenv').config();
 
 app.use(express.static('public'));
@@ -10,7 +11,7 @@ mongoose.set('strictQuery', false);
 const uri = process.env.API_KEY;
 const PORT = process.env.PORT;
 
-// const User = require('.model/user');
+const User = require('./model/user');
 
 async function start(){
     try{
@@ -32,13 +33,15 @@ app.get('/', (req, res) =>{
   })
 
 app.get('/register', (req, res) =>{
-// res.sendFile('public/login/login.html');
+// res.sendFile('public/login/login.html'); //cant work since it doesnt work with relative path. needs full path
 res.sendFile(path.join(__dirname, 'public/login/register.html'));
 })
 
 app.get('/login', (req, res) =>{
-// res.sendFile('public/login/login.html');
-res.sendFile(path.join(__dirname, 'public/login/login.html'));
+// res.sendFile('public/login/login.html'); //cant work since it doesnt work with relative path. needs full path
+res.sendFile(path.join(__dirname, 'public/login/signin.html'));
 })
 
-// app.post
+app.post('/api/register', async(req, res) =>{
+    console.log('This is the result the server got: ')
+})
