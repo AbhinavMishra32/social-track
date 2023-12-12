@@ -1,7 +1,10 @@
 const express = require("express");
 const session = require('express-session');
-const app = express();
 const path = require('path');
+const app = express();
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -53,7 +56,13 @@ res.sendFile(path.join(__dirname, 'public/login/signin.html'));
 })
 
 app.get('/dashboard', (req, res) =>{
-    res.sendFile(path.join(__dirname, 'public/dashboard/dashboard.html'));
+    // res.sendFile(path.join(__dirname, 'public/dashboard/dashboard.html'));
+    if(req.session.loggedIn){
+        res.render('dashboard', {username: req.session.username});
+    }
+    else{
+        res.redirect('/login');
+    }
 })
 
 app.post('/api/register', async(req, res) =>{
@@ -96,14 +105,9 @@ app.post('/api/login', async(req, res) =>{
     // res.json({status: 'Username found in database'});
 })
 
-app.get('/dashboard', (req, res) =>{
-    if(req.session.loggedIn){
-        res.render('dashboard', {username: req.session.username});
-    }
-    else{
-        res.redirect('/login');
-    }
-})
+// app.get('/dashboard', (req, res) =>{
+
+// })
 
 // app.post('/api/logout', async(req, res) =>{
     
