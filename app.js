@@ -56,7 +56,7 @@ app.post('/api/register', async(req, res) =>{
     }
     catch(err){
         if(err.code === 11000){
-            res.status(409).json({message: 'Username already exists'});
+            res.status(409).json({message: 'This username has already been taken'});
         }
         else{
             res.status(500).json({message: 'Something went wrong'});

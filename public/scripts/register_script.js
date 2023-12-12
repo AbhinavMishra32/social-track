@@ -17,15 +17,27 @@ async function loginUser(event){
 
     try{
         const result = await fetch('/api/register', options);
-        if(!result.ok){
-            throw new Error('Network response was not OK. (abhinav messsage)');
-            console.log(json.message)
-        }
         const json = await result.json();
-        // console.log(json.status);
-        console.log(json.message)
+        if(!result.ok){
+            console.log(json.message)
+            let p = document.getElementById('message');
+            if(!p){
+                p.document.createElement('p');
+                p.innerHTML = json.message;
+                document.getElementById('login-box').appendChild(p);
+            }
+            p.innerHTML = json.message;
+            // throw new Error('Network response was not OK. (abhinav messsage)');
+        }
     }
     catch(err){
         console.error('Error: ', err);
     }
+}
+addEventListener('signup-button', signUpButton);
+
+function signUpButton(event){
+    event.preventDefault();
+    
+
 }
