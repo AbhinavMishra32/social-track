@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require('express-session');
 const app = express();
 const path = require('path');
 app.use(express.json());
@@ -30,6 +31,12 @@ async function start(){
 }
 
 start();
+
+app.use(session({
+    secret: 'abhinavmishrasecretkeyyoyoyo',
+    resave: false,
+    saveUninitialized: false
+}));
 
 app.get('/', (req, res) =>{
     res.sendFile('index.html', {root: 'public'})
@@ -80,10 +87,22 @@ app.post('/api/login', async(req, res) =>{
     if(username === user.username && password === user.password){
         console.log("Credentials matched");
         // console.log('You can login now!')
-        return res.json({status: 'OK',message: 'Credentials matched'});
+        req.session.loggedIn = true;
+        req.session.username = username;
+        console.log(req.session.username);
+
+        return res.json({status: 'OK',message: 'Credentials matched',});
     }
     // res.json({status: 'Username found in database'});
+})
 
+app.get('/dashboard', (req, res) =>{
+    if(req.session.loggedIn){
+        res.render('dashboard', {username: req.session.username});
+    }
+    else{
+        res.redirect('/login');
+    }
 })
 
 // app.post('/api/logout', async(req, res) =>{
