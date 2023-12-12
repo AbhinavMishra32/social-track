@@ -46,7 +46,7 @@ res.sendFile(path.join(__dirname, 'public/login/signin.html'));
 })
 
 app.post('/api/register', async(req, res) =>{
-    console.log('This is the result the server got: ' + JSON.stringify(req.body));
+    console.log('This credentials server got: ' + JSON.stringify(req.body));
     const {username, password} = req.body;
     //creating user in database:
     try{
@@ -70,15 +70,15 @@ app.post('/api/login', async(req, res) =>{
     const user = await User.findOne({username}).lean();
 
     if(!user){
-        return res.json({status: 'error', error: 'Invalid username/password'})
+        return res.json({status: 'error', error: 'Invalid username/password', message: 'Username not found in database'})
     }
 
     if(username === user.username && password === user.password){
         console.log("Credentials matched");
-        console.log('You can login now!')
-        return res.json({status: 'Credentials matched'});
+        // console.log('You can login now!')
+        return res.json({status: 'OK',message: 'Credentials matched'});
     }
-    res.json({status: 'Username found in database'});
+    // res.json({status: 'Username found in database'});
 
 })
 

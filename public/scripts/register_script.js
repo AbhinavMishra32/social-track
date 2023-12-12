@@ -23,6 +23,7 @@ async function loginUser(event){
             let p = document.getElementById('message');
             if(!p){
                 p.document.createElement('p');
+                p.id = 'message';
                 p.innerHTML = json.message;
                 document.getElementById('login-box').appendChild(p);
             }
@@ -34,10 +35,17 @@ async function loginUser(event){
         console.error('Error: ', err);
     }
 }
+// const signUpButton = document.getElementById('signup-button');
+// signUpButton.addEventListener('click', signUpButton);
+
+// function signUpButton(){
+//     window.location.href = '/register';
+// }
+
 addEventListener('signup-button', signUpButton);
 
 function signUpButton(event){
     event.preventDefault();
-    
+    window.location.href = '/register';
 
 }

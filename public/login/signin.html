@@ -10,15 +10,16 @@
     <link rel="stylesheet" href="../styles/login_style.css">
     <p class = "login-text">Sign in</p>
     <!-- <input type="password" placeholder="Enter password" class ="inputs"> -->
-    <div class = "login-box">
+    <div class = "login-box" id = 'login-box'>
         <form id = "login-form">
         <div class="center-container">
             <input id = 'username' type="text" placeholder="Enter Username" class = "inputs username-field">
             <input id = 'password' type="password" class="inputs password-field" placeholder="Enter Password">
+            <p id="message"></p>
         </div>
         <div class = "login-button-css">
             <input type = 'submit' class = "login-button" value = 'Proceed'>
-            <input type = 'submit' class = "signup-button" value = 'Sign up'></input>
+            <button class = "signup-button "id = "signup-button">Sign up</button>
         </div>
         </form>
     </div>
