@@ -1,6 +1,11 @@
 const form = document.getElementById('login-form');
 form.addEventListener('submit', loginUser);
 
+function signUpButtonFunc(event){
+    event.preventDefault();
+    window.location.href = '/register';
+}
+
 async function loginUser(event){
     event.preventDefault();
     const username = document.getElementById('username').value;
@@ -18,9 +23,7 @@ async function loginUser(event){
     try{
         const result = await fetch('/api/login', options);
         const json = await result.json();
-        if(!result.ok){
-            // throw new Error('Network response was not OK. (abhinav messsage)');
-            let p = document.getElementById('message');
+        let p = document.getElementById('message');
             if(!p){
                 p.document.createElement('p');
                 p.id = 'message';
@@ -28,10 +31,14 @@ async function loginUser(event){
                 document.getElementById('login-box').appendChild(p);
             }
             p.innerHTML = json.message;
+        if(!result.ok){
+            // throw new Error('Network response was not OK. (abhinav messsage)');
+            
             console.log(json.message);
         }
         else{
             console.log(json.message);
+            window.location.href = '/dashboard';
         }
         
         // console.log(json.error)
@@ -60,10 +67,6 @@ async function loginUser(event){
     // }
 }
 
-addEventListener('signup-button', signUpButton);
+// const signUpButton = document.getElementById('signup-button');
+// signUpButton.addEventListener('signup-button', signUpButtonFunc);
 
-function signUpButton(event){
-    event.preventDefault();
-    window.location.href = '/register';
-
-}

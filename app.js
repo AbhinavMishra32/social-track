@@ -45,6 +45,10 @@ app.get('/login', (req, res) =>{
 res.sendFile(path.join(__dirname, 'public/login/signin.html'));
 })
 
+app.get('/dashboard', (req, res) =>{
+    res.sendFile(path.join(__dirname, 'public/dashboard/dashboard.html'));
+})
+
 app.post('/api/register', async(req, res) =>{
     console.log('This credentials server got: ' + JSON.stringify(req.body));
     const {username, password} = req.body;
@@ -70,7 +74,7 @@ app.post('/api/login', async(req, res) =>{
     const user = await User.findOne({username}).lean();
 
     if(!user){
-        return res.json({status: 'error', error: 'Invalid username/password', message: 'Username not found in database'})
+        return res.json({status: 'error', error: 'Invalid username/password', message: 'Please enter the correct username or password.'})
     }
 
     if(username === user.username && password === user.password){
