@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 const path = require('path');
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 require('dotenv').config();
 
 app.use(express.static('public'));
@@ -43,12 +46,13 @@ res.sendFile(path.join(__dirname, 'public/login/signin.html'));
 })
 
 app.post('/api/register', async(req, res) =>{
-    console.log('This is the result the server got: ' + req.body);
+    console.log('This is the result the server got: ' + JSON.stringify(req.body));
     const {username, password} = req.body;
     //creating user in database:
     try{
         const response = await User.create({username,password})
-        console.log("user created successfully!" + "User data: ", response);
+        console.log("user created successfully! " + "User data: ", response);
+        res.json({status: 'OK'});
     }
     catch(err){
         if(err.code === 11000){
@@ -58,5 +62,26 @@ app.post('/api/register', async(req, res) =>{
             res.status(500).json({message: 'Something went wrong'});
         }
     }
-    res.json({status: 'OK'});
+    
 })
+
+app.post('/api/login', async(req, res) =>{
+    const {username, password} = req.body;
+    const user = await User.findOne({username}).lean();
+
+    if(!user){
+        return res.json({status: 'error', error: 'Invalid username/password'})
+    }
+
+    if(username === user.username && password === user.password){
+        console.log("Credentials matched");
+        console.log('You can login now!')
+        return res.json({status: 'Credentials matched'});
+    }
+    res.json({status: 'Username found in database'});
+
+})
+
+// app.post('/api/logout', async(req, res) =>{
+    
+// });

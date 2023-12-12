@@ -16,12 +16,14 @@ async function loginUser(event){
     }
 
     try{
-        const result = await fetch('/api/login', options);
+        const result = await fetch('/api/register', options);
         if(!result.ok){
             throw new Error('Network response was not OK. (abhinav messsage)');
+            console.log(json.message)
         }
         const json = await result.json();
-        console.log(json.status)
+        // console.log(json.status);
+        console.log(json.message)
     }
     catch(err){
         console.error('Error: ', err);
