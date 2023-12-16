@@ -82,9 +82,8 @@ app.post('/api/register', async(req, res) =>{
             res.status(500).json({message: 'Something went wrong'});
         }
     }
-    
 })
-
+//TODO: add login with correct routing 
 app.post('/api/login', async(req, res) =>{
     const {username, password} = req.body;
     const user = await User.findOne({username}).lean();
